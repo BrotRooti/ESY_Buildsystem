@@ -58,6 +58,7 @@ jobs:
           
           echo "=== System-Info ==="
           uname -a
+          df -h $WORKDIR
       
       - name: Setze Build-Umgebungsvariablen
         run: |
