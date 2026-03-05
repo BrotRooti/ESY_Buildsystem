@@ -10,7 +10,7 @@ on:
 #   - cancel-in-progress=false: Läuft den aktuellen Build immer zu Ende
 # ------------------------------------------------------------------------------
 concurrency:
-  group: selfhosted
+  group: Default
   cancel-in-progress: false
   
 jobs:
@@ -46,8 +46,6 @@ jobs:
           echo "Build-Umgebung vorbereitet in $WORKDIR"
           ls -la
                    
-          # Mache Skript ausführbar
-          chmod +x rebuild-esp32s3-linux-wifi.sh
       
       - name: System-Abhängigkeiten prüfen
         run: |
