@@ -32,15 +32,15 @@ jobs:
         run: |
         
           # Erstelle Build-Verzeichnis
-          WORKDIR="$GITHUB_WORKSPACE/DisplayAdaptions"
+          WORKDIR="${{ github.workspace }}/DisplayAdaptions"
           mkdir -p "$WORKDIR"
           cd "$WORKDIR"
           
-          cp -v "$GITHUB_WORKSPACE/scripts/rebuild-esp32s3-linux-wifi.sh" .
-          cp -v "$GITHUB_WORKSPACE/"*.conf . 2>/dev/null || true
-          cp -v "$GITHUB_WORKSPACE/"sdkconfig.defaults.* . 2>/dev/null || true
-          cp -v "$GITHUB_WORKSPACE/kernel-config-spi.frag" . 2>/dev/null || true
-          cp -v "$GITHUB_WORKSPACE/rootfs_esp32s3_devkit_c1_8m_spi.config" . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/scripts/rebuild-esp32s3-linux-wifi.sh" .
+          cp -v "${{ github.workspace }}/"*.conf . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/"sdkconfig.defaults.* . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/kernel-config-spi.frag" . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/rootfs_esp32s3_devkit_c1_8m_spi.config" . 2>/dev/null || true
           
           chmod +x rebuild-esp32s3-linux-wifi.sh
           echo "Build-Umgebung vorbereitet in $WORKDIR"
@@ -65,7 +65,7 @@ jobs:
           cd $WORKDIR
       
       - name: ESP32-S3 Linux Build ausführen
-        working-directory: $WORKDIR
+        working-directory: ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions
         timeout-minutes: 360
         run: |         
           # Führe Build-Skript aus
@@ -77,9 +77,9 @@ jobs:
         with:
           name: esp32s3-linux-images-${{ github.run_number }}
           path: |
-            $WORKDIR/DisplayAdaptions/build/build-buildroot-*/images/xipImage
-            $WORKDIR/DisplayAdaptions/build/build-buildroot-*/images/rootfs.cramfs
-            $WORKDIR/DisplayAdaptions/build/build-buildroot-*/images/etc.jffs2
+            ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions/build/build-buildroot-*/images/xipImage
+            ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions/build/build-buildroot-*/images/rootfs.cramfs
+            ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions/build/build-buildroot-*/images/etc.jffs2
           retention-days: 7
           if-no-files-found: error
       
