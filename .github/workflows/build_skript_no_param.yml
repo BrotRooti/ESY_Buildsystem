@@ -58,7 +58,7 @@ jobs:
           
           echo "=== System-Info ==="
           uname -a
-          df -h $WORKDIR/DisplayAdaptions
+          df -h ../DisplayAdaptions
       
       - name: Setze Build-Umgebungsvariablen
         run: |
