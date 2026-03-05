@@ -10,7 +10,7 @@ on:
 #   - cancel-in-progress=false: Läuft den aktuellen Build immer zu Ende
 # ------------------------------------------------------------------------------
 concurrency:
-  group: selfhosted-build
+  group: selfhosted
   cancel-in-progress: false
   
 jobs:
@@ -36,7 +36,7 @@ jobs:
           mkdir -p "$WORKDIR"
           cd "$WORKDIR"
           
-          cp -v "$GITHUB_WORKSPACE/rebuild-esp32s3-linux-wifi.sh" .
+          cp -v "$GITHUB_WORKSPACE/scripts/rebuild-esp32s3-linux-wifi.sh" .
           cp -v "$GITHUB_WORKSPACE/"*.conf . 2>/dev/null || true
           cp -v "$GITHUB_WORKSPACE/"sdkconfig.defaults.* . 2>/dev/null || true
           cp -v "$GITHUB_WORKSPACE/kernel-config-spi.frag" . 2>/dev/null || true
